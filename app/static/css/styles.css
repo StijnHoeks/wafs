@@ -1,25 +1,112 @@
 * {
 	margin: 0;
 	padding: 0;
+	text-decoration: none;
 	box-sizing: border-box;
+	list-style: none;
+	text-decoration: none;
+	color: rgb(60,60,60);
+	line-height: 1.4em;
+	letter-spacing: 0.03em;
 }
+
 html, body {
 	position: relative;
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 	font-family: 'Ubuntu';
-	font-weight: 300;
+	font-weight: 100;
 }
-nav {
-	position: fixed;
-}
+
+/********/
+/* PAGE */
+/********/
+
 section {
 	display: none;
-	width: 100%;
-	height: 100%;
+	position: relative;
+	width: 100vw;
+	height: 100vh;
 	min-height: 640px;
-	padding: 100px 15%;
+	padding: calc(5% + 3rem) 15%;
 }
 section.active {
 	display: block;
 }	
+
+section#start {
+	background-image: url('../img/mountain.jpg');
+	background-size: cover;
+	background-position: center top;
+}
+
+
+
+/*******************/
+/* INLINE ELEMENTS */
+/*******************/
+
+section#start h1 {
+	color: rgb(255,255,255);
+	font-size: 8vw;
+}
+span {
+	margin-right: 1rem;
+}
+
+/*******/
+/* NAV */
+/*******/
+
+nav {
+	display: block;
+	position: fixed;
+	width: 100%;
+	height: min-content;
+	background-color: rgb(255,255,255);
+	box-shadow: 0 0 10px rgba(0,0,0,0.1);
+	z-index: 99;
+}
+nav ul {
+	position: relative;
+	height: min-content;
+	padding: 0 15%;
+}
+nav li {
+	display: inline-block;
+	position: relative;
+}
+nav a {
+	display: block;
+	padding: 0 1rem;
+	line-height: 4rem;
+}
+nav a:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 0;
+	height: 1px;
+	left: 50%;
+	bottom: 0;
+	background-color: rgb(250,90,60);
+	transition: all 150ms ease;
+}
+nav a:hover:after {
+	width: calc(100% - 2rem);
+	left: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
