@@ -23,22 +23,20 @@ html, body {
 /********/
 
 section {
-	display: none;
+	display: block;
 	position: relative;
 	width: 100vw;
 	height: 100vh;
 	min-height: 640px;
 	padding: calc(5% + 3rem) 15%;
 }
-section.active {
-	display: block;
-}	
 
-section#start {
+
+/*section#start {
 	background-image: url('../img/mountain.jpg');
 	background-size: cover;
 	background-position: center top;
-}
+}*/
 
 
 
@@ -46,10 +44,7 @@ section#start {
 /* INLINE ELEMENTS */
 /*******************/
 
-section#start h1 {
-	color: rgb(255,255,255);
-	font-size: 8vw;
-}
+
 span {
 	margin-right: 1rem;
 }
@@ -90,7 +85,7 @@ nav a:after {
 	left: 50%;
 	bottom: 0;
 	background-color: rgb(250,90,60);
-	transition: all 150ms ease;
+	transition: all 175ms ease;
 }
 nav a:hover:after {
 	width: calc(100% - 2rem);
