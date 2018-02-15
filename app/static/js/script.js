@@ -22,13 +22,12 @@
 
             var request = new XMLHttpRequest();
 
-            request.open('GET', 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&camera=fhaz&api_key=dbuOrGB7xoks2WobqPacpFP6fODFIU7gR0rStswa', true);
+            request.open('GET', 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=dbuOrGB7xoks2WobqPacpFP6fODFIU7gR0rStswa', true);
 
             request.onload = function() {
                 if (request.status >= 200 && request.status < 400) {
                     var data = JSON.parse(request.responseText);
                     template.init(data)
-                    //console.log('Success!')
                 } else {
                     //console.log('Request niet toegestaan')
                 }
@@ -45,7 +44,7 @@
     }
     // handle routes & states
     var routes = {
-        init: function(data) {
+        init: function() {
             this.handleEvent();
         },
         handleEvent: function() {
@@ -55,77 +54,102 @@
                 },
                 'start': function() {
                     var $this = this;
-                    var oldUrl = window.location.hash.substr(1);
-                    var oldTargetEl = document.getElementById( oldUrl );
-                    sections.toggle($this,oldTargetEl);
+                    sections.init($this);
                 },
                 'bestpractices': function() {
                     var $this = this;
-                    var oldUrl = window.location.hash.substr(1);
-                    var oldTargetEl = document.getElementById( oldUrl );
-                    sections.toggle($this,oldTargetEl);
+                    sections.init($this);
                 },
                 'modular': function() {
                     var $this = this;
-                    var oldUrl = window.location.hash.substr(1);
-                    var oldTargetEl = document.getElementById( oldUrl );
-                    sections.toggle($this,oldTargetEl);
+                    sections.init($this);
                 },
                 'modularder': function() {
                     var $this = this;
-                    var oldUrl = window.location.hash.substr(1);
-                    var oldTargetEl = document.getElementById( oldUrl );
-                    sections.toggle($this,oldTargetEl);
+                    sections.init($this);
+                },
+                'entry_inner': function() {
+                    var $this = this;
+                    sections.init($this);
                 }
             });
 
 
         }
+
     }
 
     // render / toggle sections
     var sections = {
-        init: function() {
-
+        init: function($this) {
+            sections.toggle($this);
         },
-        toggle: function($this,oldTargetEl) {
+        toggle: function($this) {
+
+            var sections = document.querySelectorAll('section.active')
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].classList.remove('active');
+            }
 
             var targetElement = document.getElementById($this.path);
             targetElement.classList.add('active');
-            oldTargetEl.classList.remove('active');
-
-            template.init();
-
-        },
-        scroll: function() {
 
         }
+
     }
+
+
 
 
     var template = {
+
         init: function(data) {
 
-            var activities = [
-                {activity: data.photos[0].id},
-                {activity: data.photos[0].sol},
-                {activity: data.photos[0].img_src}
-            ];
-
-            template.render(activities);
+            var randomIndex = parseInt(Math.random()*data.photos.length);
+            this.create(data,randomIndex)
 
         },
-        render: function(activities) {
+        create: function(data,randomIndex) {
 
-            Transparency.render(document.getElementById('activities'), activities);
+            var newEntry = document.createElement('a');
+            newEntry.id = 'entry';
+            newEntry.href = '#entry_inner';
+            
+            document.getElementById('start').appendChild(newEntry);
+        
+            this.render(data,randomIndex)
 
+        },
+        render: function(data,randomIndex) {
+
+
+            shaven.default(
+                [document.getElementById('entry'),
+                    ['div', {
+                        style: {
+                            'background-image': 'url('+data.photos[randomIndex].img_src+')',
+                        },
+                    }],
+                    ['ul',    
+                        ['li', 'Camera',
+                            ['p',data.photos[randomIndex].camera.full_name]
+                        ],
+                        ['li', 'ID',
+                            ['p',data.photos[randomIndex].id]
+                        ],    
+                    ]   
+                ]
+            )
+
+
+        
         }
+
+
     }
 
 
 
-
-        
 
     // roep de functie app.init aan
     app.init()

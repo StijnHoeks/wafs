@@ -16,6 +16,7 @@ html, body {
 	height: 100vh;
 	font-family: 'Ubuntu';
 	font-weight: 100;
+	font-size: 62.5%;
 }
 
 /********/
@@ -23,30 +24,63 @@ html, body {
 /********/
 
 section {
-	display: block;
+	display: none;
 	position: relative;
 	width: 100vw;
 	height: 100vh;
 	min-height: 640px;
-	padding: calc(5% + 3rem) 15%;
+	padding: calc(10% + 3rem) 15%;
 }
-
-
-/*section#start {
-	background-image: url('../img/mountain.jpg');
-	background-size: cover;
-	background-position: center top;
-}*/
-
+section.active {
+	display: block;
+}
 
 
 /*******************/
 /* INLINE ELEMENTS */
 /*******************/
 
+h1 {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+}
+p, a {
+	font-size: 1.4rem;
+}
 
-span {
-	margin-right: 1rem;
+
+section:first-of-type a {
+	display: block;
+	float: left;
+	box-shadow: 0 0 10px rgba(0,0,0,0.1);
+	border-radius: 0.3rem;
+	overflow: hidden;
+	width: 100%;
+}
+a:hover {
+	cursor: pointer;
+}
+section:first-of-type div {
+	display: block;
+	width: 40%;
+	height: 15vw;
+	background-size: cover;
+	background-position: center;
+	float: left;
+}
+section:first-of-type ul {
+	float: left;
+	padding: 2vw;
+}
+section:first-of-type li {
+	display: block;
+	font-weight: 600;
+}
+section:first-of-type p {
+	display: inline-block;
+	margin-left: 1rem;
+	font-weight: 100;
+	line-height: 1.5;
 }
 
 /*******/
@@ -74,7 +108,11 @@ nav li {
 nav a {
 	display: block;
 	padding: 0 1rem;
-	line-height: 4rem;
+	line-height: 6rem;
+	transition: all 175ms ease;
+}
+nav a:hover {
+	color: rgb(250,90,60);
 }
 nav a:after {
 	content: "";
