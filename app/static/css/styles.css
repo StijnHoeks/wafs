@@ -29,7 +29,7 @@ section {
 	width: 100vw;
 	height: 100vh;
 	min-height: 640px;
-	padding: calc(10% + 3rem) 15%;
+	padding: 10rem 15%;
 }
 section.active {
 	display: block;
@@ -56,6 +56,7 @@ section:first-of-type a {
 	border-radius: 0.3rem;
 	overflow: hidden;
 	width: 100%;
+	margin: 1vh 0;
 }
 a:hover {
 	cursor: pointer;
