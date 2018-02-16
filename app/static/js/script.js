@@ -13,14 +13,18 @@
     var app = {
         init: function() {
 
-            getData.init();
+            collection.init();
             
         }
     }
 
-    var getData = {
+    var collection = {
         init: function() {
+            this.get();
+        },
+        get: function() {
             // dbuOrGB7xoks2WobqPacpFP6fODFIU7gR0rStswa
+            var self = this;
 
             var request = new XMLHttpRequest();
 
@@ -29,7 +33,7 @@
             request.onload = function() {
                 if (request.status >= 200 && request.status < 400) {
                     var data = JSON.parse(request.responseText);
-                    getData.cleanData(data);
+                    self.clean(data);
                 } else {
                     //console.log('Request niet toegestaan')
                 }
@@ -41,15 +45,14 @@
             request.send();
 
             routes.init();
-            
         },
-        cleanData: function(data) {
+        clean: function(data) {
 
             let dataArray = Object.values(data.photos)
 
-            let schoon = dataArray.filter(dataObject => dataObject.rover.status === 'active')
+            let newArray = dataArray.filter(dataObject => dataObject.rover.status === 'inactive')
 
-            template.init(data)
+            content.init(data)
         }
     }
 
@@ -65,23 +68,23 @@
                 '': function() {
                 },
                 'start': function() {
-                    var $this = this;
+                    var $this = this.path;
                     routes.current($this);
                 },
                 'bestpractices': function() {
-                    var $this = this;
+                    var $this = this.path;
                     routes.current($this);
                 },
                 'modular': function() {
-                    var $this = this;
+                    var $this = this.path;
                     routes.current($this);
                 },
                 'modularder': function() {
-                    var $this = this;
+                    var $this = this.path;
                     routes.current($this);
                 },
                 ':id': function() {
-                    var $this = this;
+                    var $this = this.params.id;
                     routes.current($this);
                 }
             });
@@ -95,48 +98,45 @@
                 routes[i].classList.remove('active');
             }
 
-            var targetElement = document.getElementById($this.path);
+            var targetElement = document.getElementById($this);
             targetElement.classList.add('active');
 
         }
 
     }
 
-
-
-    var template = {
+    var content = {
 
         init: function(data) {
 
-            var randomIndex = parseInt(Math.random()*data.photos.length);
-            this.create(data,randomIndex)
+            this.create(data)
 
         },
-        create: function(data,randomIndex) {
+        create: function(data) {
             
             for (var i = 0; i < data.photos.length; i++) {
 
                 var newEntry = document.createElement('a');
-                newEntry.id = data.photos[i].id;
-                newEntry.href = '#'+data.photos[i].id;
+                newEntry.id = 'main_'+data.photos[i].id;
+                newEntry.href = '#detail_'+data.photos[i].id;
                 document.getElementById('start').appendChild(newEntry);
 
-                var newEntry_inner = document.createElement('article');
-                newEntry_inner.id = data.photos[i].id;
-                document.getElementById('start').appendChild(newEntry_inner);
+                var newEntry_inner = document.createElement('section');
+                newEntry_inner.id = 'detail_'+data.photos[i].id;
+                document.getElementById('body').appendChild(newEntry_inner);
 
             }
 
-            this.render(data,randomIndex)
+            this.render(data)
 
         },
-        render: function(data,randomIndex) {
+        render: function(data) {
 
 
             for (var i = 0; i < data.photos.length; i++) {
             
                 shaven.default(
-                    [document.getElementById(data.photos[i].id),
+                    [document.getElementById('main_'+data.photos[i].id),
                         ['div', {
                             style: {
                                 'background-image': 'url('+data.photos[i].img_src+')',
@@ -153,9 +153,32 @@
                     ]
                 )
             }
-        }
-    
+            this.detail(data)
+        },
+        detail: function(data) {
 
+            for (var i = 0; i < data.photos.length; i++) {
+            
+                shaven.default(
+                    [document.getElementById('detail_'+data.photos[i].id),
+                        ['div', {
+                            style: {
+                                'background-image': 'url('+data.photos[i].img_src+')',
+                            },
+                        }],
+                        ['ul',    
+                            ['li', 'Camera',
+                                ['p',data.photos[i].camera.full_name]
+                            ],
+                            ['li', 'ID',
+                                ['p',data.photos[i].id]
+                            ],    
+                        ]   
+                    ]
+                )
+            }
+            
+        }
 
 
 

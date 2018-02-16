@@ -31,6 +31,7 @@ section {
 	min-height: 640px;
 	padding: 10rem 15%;
 }
+
 section.active {
 	display: block;
 }
@@ -48,36 +49,36 @@ p, a {
 	font-size: 1.4rem;
 }
 
-
-section:first-of-type a {
+section a {
 	display: block;
 	float: left;
-	box-shadow: 0 0 10px rgba(0,0,0,0.1);
+	box-shadow: 0 0 1rem rgba(0,0,0,0.1);
 	border-radius: 0.3rem;
 	overflow: hidden;
 	width: 100%;
 	margin: 1vh 0;
 }
+
 a:hover {
 	cursor: pointer;
 }
-section:first-of-type div {
+section div {
 	display: block;
 	width: 40%;
-	height: 15vw;
+	height: 10vw;
 	background-size: cover;
 	background-position: center;
 	float: left;
 }
-section:first-of-type ul {
+section ul {
 	float: left;
 	padding: 2vw;
 }
-section:first-of-type li {
+section li {
 	display: block;
 	font-weight: 600;
 }
-section:first-of-type p {
+section p {
 	display: inline-block;
 	margin-left: 1rem;
 	font-weight: 100;
