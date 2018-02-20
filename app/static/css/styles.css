@@ -19,6 +19,13 @@ html, body {
 	font-size: 62.5%;
 }
 
+body {
+	height: 100%;
+	background-image: url(../img/bg.jpg);
+	background-size: cover;
+	background-attachment: fixed;
+}
+
 /********/
 /* PAGE */
 /********/
@@ -41,39 +48,70 @@ section.active {
 /* INLINE ELEMENTS */
 /*******************/
 
+h1, a, #detail p {
+	color: rgb(255,255,255);
+}
+
 h1 {
 	font-size: 2rem;
 	margin-bottom: 1rem;
+	display: inline-block;
+	font-weight: 400;
 }
-p, a {
+p, li {
 	font-size: 1.4rem;
 }
-
-section a {
-	display: block;
-	float: left;
-	box-shadow: 0 0 1rem rgba(0,0,0,0.1);
-	border-radius: 0.3rem;
-	overflow: hidden;
-	width: 100%;
-	margin: 1vh 0;
+img {
+	border-radius: 0.4rem;
 }
-
 a:hover {
 	cursor: pointer;
 }
+
+/*************/
+/* MAIN PAGE */
+/*************/
+
+section:first-of-type a {
+	display: block;
+	float: left;
+	background-color: rgba(255,255,255,0.9);
+	box-shadow: 0 0 1rem rgba(0,0,0,0.1);
+	border-radius: 0.4rem;
+	overflow: hidden;
+	height: 10vw;
+	width: 100%;
+	margin: 0.5vw 0;
+	transition: all 300ms ease-out 30ms;
+}
 section div {
 	display: block;
-	width: 40%;
-	height: 10vw;
-	background-size: cover;
-	background-position: center;
 	float: left;
+	width: 50%;
+	height: 100%;
+	background-size: cover;
+	background-position: center 25%;
+	border-top-left-radius: 0.4rem;
+	border-bottom-left-radius: 0.4rem;
 }
-section ul {
+section:first-of-type a:hover {
+	transform: scale(1.02);
+	transition: all 120ms ease-out;
+}
+section:first-of-type ul {
 	float: left;
 	padding: 2vw;
 }
+/*section:first-of-type a:hover {
+	height: 11vw;
+	margin: 0.5vw 0;
+	width: 102%;
+	margin-left: -1%;
+}
+section:first-of-type a:hover ul {
+	padding-top: 2.5vw;
+}
+*/
 section li {
 	display: block;
 	font-weight: 600;
@@ -85,6 +123,11 @@ section p {
 	line-height: 1.5;
 }
 
+
+
+
+
+
 /*******/
 /* NAV */
 /*******/
@@ -94,7 +137,7 @@ nav {
 	position: fixed;
 	width: 100%;
 	height: min-content;
-	background-color: rgb(255,255,255);
+	background-color: rgba(255,255,255,0.9);
 	box-shadow: 0 0 10px rgba(0,0,0,0.1);
 	z-index: 99;
 }
@@ -114,17 +157,17 @@ nav a {
 	transition: all 175ms ease;
 }
 nav a:hover {
-	color: rgb(250,90,60);
+	color: rgb(160,100,200);
 }
 nav a:after {
 	content: "";
 	position: absolute;
 	display: block;
 	width: 0;
-	height: 1px;
+	height: 2px;
 	left: 50%;
 	bottom: 0;
-	background-color: rgb(250,90,60);
+	background-color: rgb(140,60,160);
 	transition: all 175ms ease;
 }
 nav a:hover:after {
@@ -132,6 +175,63 @@ nav a:hover:after {
 	left: 1rem;
 }
 
+
+
+/***************/
+/* DETAIL PAGE */
+/***************/
+
+#detail img {
+	position: absolute;
+	width: 70%;
+}
+#detail header {
+	margin-bottom: 0.8rem;
+}
+#detail ul {
+	position: relative;
+	padding: 1rem;
+	z-index: 10;
+}
+#detail ul li, #detail ul p {
+	color: rgb(255,255,255);
+}
+
+
+/*********/
+/* ERROR */
+/*********/
+
+#errorMessage {
+	display: flex;
+	width: 100%;
+	border-left: 2px solid rgb(240,100,60);
+	background-color: rgba(240,100,60,0.1);
+	font-size: 1.4rem;
+	padding: 1rem;
+}
+#errorMessage img {
+	display: block;
+	float: left;
+	height: 160px;
+	width: auto;
+}
+#errorMessage article {
+	display: flex;
+	flex-direction: column;
+	padding-left: 1rem;
+}
+#errorMessage p {
+	margin: 0;
+	display: block;
+	float: left;
+}
+#errorMessage a {
+	padding: 0.5rem 1rem;
+	width: min-content;
+	white-space: nowrap;
+	background-color: rgb(255,255,255);
+}
 
 
 
