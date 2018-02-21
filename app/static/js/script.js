@@ -10,8 +10,22 @@
             api.init();
             routes.init();
             if ( window.location.hash.substring(1) == '' ) {
-                window.location.href = '#start';
+                windoyw.location.href = '#start';
             }
+        },
+        loader: {
+            show: function(loader) {
+                loader.classList.remove('hide');
+                TweenMax.set([send1,send2,send3], { opacity: 1 });
+                TweenMax.to([wheel1,wheel2,wheel3], 3, { rotation: 360, transformOrigin: "center center", ease:Linear.easeNone, repeat: -1 });
+                TweenMax.to(send1, 0.5, { opacity: 0, repeat: -1, repeatDelay: 0.75 });
+                TweenMax.to(send2, 0.5, { opacity: 0, repeat: -1, repeatDelay: 0.75, delay: 0.2 });
+                TweenMax.to(send3, 0.5, { opacity: 0, repeat: -1, repeatDelay: 0.75, delay: 0.4 });
+            },
+            hide: function(loader) {
+                loader.classList.add('hide');
+                TweenMax.to(send3, 0.5, { opacity: 0, repeat: -1, repeatDelay: 0.75, delay: 0.4 });
+            }   
         }
     }
 
@@ -20,6 +34,8 @@
             this.request();
         },
         request: function() {
+            var loader = document.getElementById('loader');
+            app.loader.show(loader)
             // api_key=dbuOrGB7xoks2WobqPacpFP6fODFIU7gR0rStswa
             var self = this;
             var request = new XMLHttpRequest();
@@ -27,8 +43,9 @@
 
             request.onload = function() {
                 if (request.status >= 200 && request.status < 400) {
-                    var rawData = JSON.parse(request.responseText);
+                    var rawData = JSON.parse(request.responseText).photos;
                     collection.init(rawData);
+                    app.loader.hide(loader)
                 } else { //console.log('Request niet toegestaan')
                     api.error();
                 }
@@ -63,9 +80,12 @@
             this.clean(rawData);
         },
         clean: function(rawData) {
-            //let dataArray = Object.values(rawData.photos)
-            //let data = dataArray.filter(dataObject => dataObject.rover.status === 'inactive')
-            var data = rawData;
+
+            var data = rawData.filter( function(currentValue, index, arr){
+                if ( index/2 % 1 === 0 ) { 
+                    return currentValue
+                }
+            });
             content.init(data);
 
         }
@@ -109,7 +129,7 @@
         },
         create: function(data) {
             
-            for (var i = 0; i < data.photos.length; i++) {
+            for (var i = 0; i < data.length; i++) {
                 var newEntry = document.createElement('a');
                 newEntry.id = 'main_'+i;//data.photos[i].id;
                 newEntry.href = '#detail';
@@ -120,18 +140,18 @@
         },
         render: function(data) {
 
-            for (var i = 0; i < data.photos.length; i++) {
+            for (var i = 0; i < data.length; i++) {
                 shaven.default(
                     [document.getElementById('main_'+i),//data.photos[i].id
                         ['div', {
-                            style: { 'background-image': 'url('+data.photos[i].img_src+')' },
+                            style: { 'background-image': 'url('+data[i].img_src+')' },
                         }],
                         ['ul',    
                             ['li', 'Camera',
-                                ['p',data.photos[i].camera.name]
+                                ['p',data[i].camera.name]
                             ],
                             ['li', 'ID',
-                                ['p',data.photos[i].id]
+                                ['p',data[i].id]
                             ],    
                         ]   
                     ]
@@ -188,16 +208,15 @@
                 allElements[i].addEventListener("click", function() {
                     var aCurrent = this;
                     var aIndex = aCurrent.id.substr(-1);
-                    console.log(aIndex)
                     self.update(data,aIndex);
                 });    
             }
         },
         update: function(data,aIndex) {
 
-            document.getElementById('detail_img').src       = data.photos[aIndex].img_src;
-            document.getElementById('detail_id').innerHTML  = data.photos[aIndex].id;
-            document.getElementById('detail_cam').innerHTML = data.photos[aIndex].camera.name;
+            document.getElementById('detail_img').src       = data[aIndex].img_src;
+            document.getElementById('detail_id').innerHTML  = data[aIndex].id;
+            document.getElementById('detail_cam').innerHTML = data[aIndex].camera.name;
 
         }
     }

@@ -21,7 +21,7 @@ html, body {
 
 body {
 	height: 100%;
-	background-image: url(../img/bg.jpg);
+	/*background-image: url(../img/bg.jpg);*/
 	background-size: cover;
 	background-attachment: fixed;
 }
@@ -48,10 +48,10 @@ section.active {
 /* INLINE ELEMENTS */
 /*******************/
 
-h1, a, #detail p {
+/*h1, header a, #detail p {
 	color: rgb(255,255,255);
 }
-
+*/
 h1 {
 	font-size: 2rem;
 	margin-bottom: 1rem;
@@ -82,7 +82,7 @@ section:first-of-type a {
 	height: 10vw;
 	width: 100%;
 	margin: 0.5vw 0;
-	transition: all 300ms ease-out 30ms;
+	transition: all 300ms ease-out 60ms;
 }
 section div {
 	display: block;
@@ -90,13 +90,13 @@ section div {
 	width: 50%;
 	height: 100%;
 	background-size: cover;
-	background-position: center 25%;
+	background-position: right 25%;
 	border-top-left-radius: 0.4rem;
 	border-bottom-left-radius: 0.4rem;
 }
 section:first-of-type a:hover {
 	transform: scale(1.02);
-	transition: all 120ms ease-out;
+	transition: all 140ms ease-out;
 }
 section:first-of-type ul {
 	float: left;
@@ -155,9 +155,10 @@ nav a {
 	padding: 0 1rem;
 	line-height: 6rem;
 	transition: all 175ms ease;
+	font-weight: 400;
 }
 nav a:hover {
-	color: rgb(160,100,200);
+	color: rgb(240,90,70);
 }
 nav a:after {
 	content: "";
@@ -167,7 +168,7 @@ nav a:after {
 	height: 2px;
 	left: 50%;
 	bottom: 0;
-	background-color: rgb(140,60,160);
+	background-color: rgb(240,90,70);
 	transition: all 175ms ease;
 }
 nav a:hover:after {
@@ -205,8 +206,8 @@ nav a:hover:after {
 #errorMessage {
 	display: flex;
 	width: 100%;
-	border-left: 2px solid rgb(240,100,60);
-	background-color: rgba(240,100,60,0.1);
+	border-left: 2px solid rgb(240,90,70);
+	background-color: rgba(255,100,60,0.1);
 	font-size: 1.4rem;
 	padding: 1rem;
 }
@@ -234,8 +235,25 @@ nav a:hover:after {
 }
 
 
+/**********/
+/* LOADER */
+/**********/
 
-
+div#loader {
+	display: flex;
+	position: absolute;
+	align-items: center;
+	justify-content: center;
+	width: 70%;
+	height: 70%;
+}
+div#loader.hide {
+	display: none; 
+}
+#svgrover {
+	display: block;
+	width: 150px;
+}
 
 
 
