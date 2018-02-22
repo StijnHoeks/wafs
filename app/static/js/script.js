@@ -10,7 +10,7 @@
             api.init();
             routes.init();
             if ( window.location.hash.substring(1) == '' ) {
-                windoyw.location.href = '#start';
+                window.location.href = '#start';
             }
         },
         loader: {
@@ -24,7 +24,7 @@
             },
             hide: function(loader) {
                 loader.classList.add('hide');
-                TweenMax.to(send3, 0.5, { opacity: 0, repeat: -1, repeatDelay: 0.75, delay: 0.4 });
+                TweenMax.killTweensOf([send1,send2,send3,wheel1,wheel2,wheel3]);
             }   
         }
     }
@@ -61,7 +61,7 @@
 
             var errorMessage = document.createElement('article');
             errorMessage.id = 'errorMessage';
-            document.getElementById('start').appendChild(errorMessage);
+            document.getElementById('gallery').appendChild(errorMessage);
             shaven.default(
                 [document.getElementById('errorMessage'),
                     ['img', {src:'static/img/404.jpg'} ],
@@ -131,18 +131,19 @@
             
             for (var i = 0; i < data.length; i++) {
                 var newEntry = document.createElement('a');
-                newEntry.id = 'main_'+i;//data.photos[i].id;
+                newEntry.id = data[i].camera.name+'_'+i;//data.photos[i].id;
                 newEntry.href = '#detail';
-                document.getElementById('start').appendChild(newEntry);
+                document.getElementById('gallery').appendChild(newEntry);
             }
             this.render(data)
-
+            detail.init(data);
+            controls.event(data);
         },
         render: function(data) {
 
             for (var i = 0; i < data.length; i++) {
                 shaven.default(
-                    [document.getElementById('main_'+i),//data.photos[i].id
+                    [document.getElementById(data[i].camera.name+'_'+i),//data.photos[i].id
                         ['div', {
                             style: { 'background-image': 'url('+data[i].img_src+')' },
                         }],
@@ -157,14 +158,21 @@
                     ]
                 )
             }
-            detail.init(data)
+            this.animate(data)
+        },
+        animate: function(data) {
+        	var a = document.querySelectorAll('#gallery>a');
+
+    		for (var i = 0; i < a.length; i++) {
+    			TweenMax.to(a[i], 0.5, { opacity: 1, scale: 1, y: 0, delay: (i-1)/6 });
+    		}
         }
     }
 
     var detail = {
         init: function(data) {
 
-            this.create(data)
+            this.create(data);
 
         },
         create: function(data) {
@@ -182,7 +190,7 @@
                 [document.getElementById('detail'),
                     ['header',
                         ['h1',
-                            ['a','home', {href:'index.html#start'}]],
+                            ['a','Gallery', {href:'index.html#gallery'}]],
                         ['p','>'],
                         ['p', 'detail' ]
                     ],
@@ -198,13 +206,13 @@
                 ]
             )
 
-            this.select(data);
+            this.current(data);
 
         },
-        select: function(data) {
+        current: function(data) {
             var self = this;
-            var allElements = document.getElementById('start').getElementsByTagName('a');
-            for (var i = 0; i < allElements.length; i++) {
+            var allElements = document.getElementById('gallery').getElementsByTagName('a');
+            for ( var i = 0; i < allElements.length; i++ ) {
                 allElements[i].addEventListener("click", function() {
                     var aCurrent = this;
                     var aIndex = aCurrent.id.substr(-1);
@@ -219,6 +227,37 @@
             document.getElementById('detail_cam').innerHTML = data[aIndex].camera.name;
 
         }
+    }
+
+    var controls = {
+    	event: function(data) {
+
+    		var buttons = document.querySelectorAll('#gallery header a');
+
+    		for (var i = 0; i < buttons.length; i++) {
+    			buttons[i].addEventListener("click", function() {
+    				var buttonVal = this.innerHTML;
+    				controls.filter(data,buttonVal)
+    			});
+    		}
+
+    	},
+    	filter: function(data,buttonVal) {
+
+			var entries = document.querySelectorAll('#gallery>a');
+
+    		for ( var i = 0; i < entries.length; i++ ) {
+    			var camera = entries[i].id.substr(0,4)
+    			if ( camera == buttonVal || buttonVal == 'Reset' ) {
+    				entries[i].classList.remove('hide');
+    			}
+    			else {
+    				entries[i].classList.add('hide');
+    			}
+    			
+    		}
+
+    	}
     }
 
     // roep de functie app.init aan
