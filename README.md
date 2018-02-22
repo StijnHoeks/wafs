@@ -2,10 +2,10 @@
 The course repo for 'Web App From Scratch'
 
 ## Visualised flow
-![alt text](file:///Users/stijnhoeks/Documents/GitHub/wafs/app/static/img/object_methods_diagram.jpg)
+![alt text](https://github.com/StijnHoeks/wafs/blob/master/app/static/img/visualised_flow.jpg)
 
 ## Object methods diagram
-![alt text](file:///Users/stijnhoeks/Documents/GitHub/wafs/app/static/img/visualised_flow.jpg)
+![alt text](https://github.com/StijnHoeks/wafs/blob/master/app/static/img/object_methods_diagram.jpg)
 
 ## Features
 Get images from the Mars rovers, with meta data. Filter the results. Go to the detail page for an enhanced image display.
