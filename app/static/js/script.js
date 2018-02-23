@@ -263,7 +263,10 @@
     		}
     	},
     	sol: function(data) {
-    		
+
+    		var button = document.getElementById('button')
+
+
     	}
     }
 

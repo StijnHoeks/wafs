@@ -208,7 +208,7 @@ input { /* TEMP */
 	height: 10vw;
 	width: 100%;
 	margin: 0.5vw 0;
-	transform: translateY(20px) scale(1.04);
+	transform: translateY(20px) scale(0.96);
 	transition: all 300ms ease-out 60ms;
 	overflow: hidden;
 }
@@ -226,7 +226,7 @@ input { /* TEMP */
 	border-bottom-left-radius: 0.4rem;
 }
 #gallery>a:hover {
-	transform: scale(1.02) !important;
+	transform: scale(1.03) !important;
 	transition: all 140ms ease-out;
 }
 #gallery>a ul {
