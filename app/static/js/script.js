@@ -35,11 +35,12 @@
         },
         request: function() {
             var loader = document.getElementById('loader');
+            var sol = 1000;
             app.loader.show(loader)
             // api_key=dbuOrGB7xoks2WobqPacpFP6fODFIU7gR0rStswa
             var self = this;
             var request = new XMLHttpRequest();
-            request.open('GET', 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=1&api_key=dbuOrGB7xoks2WobqPacpFP6fODFIU7gR0rStswa', true);
+            request.open('GET', 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol='+sol+'&page=1&api_key=dbuOrGB7xoks2WobqPacpFP6fODFIU7gR0rStswa', true);
 
             request.onload = function() {
                 if (request.status >= 200 && request.status < 400) {
@@ -75,6 +76,7 @@
         }
     }
 
+    // manipulate data
     var collection = {
         init: function(rawData) {
             this.clean(rawData);
@@ -120,6 +122,7 @@
 
     }
 
+    // main template
     var content = {
 
         init: function(data) {
@@ -164,11 +167,12 @@
         	var a = document.querySelectorAll('#gallery>a');
 
     		for (var i = 0; i < a.length; i++) {
-    			TweenMax.to(a[i], 0.5, { opacity: 1, scale: 1, y: 0, delay: (i-1)/6 });
+    			TweenMax.to(a[i], 0.5, { opacity: 1, scale: 1, y: 0, delay: (i-1)/10 });
     		}
         }
     }
 
+    // detail template
     var detail = {
         init: function(data) {
 
@@ -229,6 +233,7 @@
         }
     }
 
+   // Filter UI
     var controls = {
     	event: function(data) {
 
@@ -256,7 +261,9 @@
     			}
     			
     		}
-
+    	},
+    	sol: function(data) {
+    		
     	}
     }
 

@@ -14,7 +14,8 @@ Get images from the Mars rovers, with meta data. Filter the results. Go to the d
 Usage with mouse/trackpad.
 
 ## Whishlist
-Expand, expand, expand! Giving the user access to a ton of data instead of 25 images with two parameters (id and camera used).
+Currently it's only possible to filter rendered items. What i'd like to add is a function to make a custom api call based on the input of the user.
+For the rest: epand, expand, expand! Giving the user access to more data instead of 25 images with two parameters (id and camera used).
 
 ## Sources
 www.stackoverflow.com
